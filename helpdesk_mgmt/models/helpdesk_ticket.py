@@ -272,3 +272,9 @@ class HelpdeskTicket(models.Model):
                 )
             )
         return res
+
+    def button_classify(self):
+        self.env["helpdesk.ticket.ai"].response(self.name)
+
+    def button_train(self):
+        self.env["helpdesk.ticket.ai"].train_ai()

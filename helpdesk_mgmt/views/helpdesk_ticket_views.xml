@@ -124,6 +124,10 @@
                         type="object"
                         attrs="{'invisible' : [('user_id', '!=', False)]}"
                     />
+
+                    <button string="Train AI" name="button_train" type="object" />
+
+                    <button string="Classify" name="button_classify" type="object" />
                     <field
                         name="stage_id"
                         widget="statusbar"
