@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='utf-8' ?>
 <odoo>
-
     <!-- VIEW PRODUCT TEMPLATE-->
     <record id="product_view_template" model="ir.ui.view">
         <field name="name">product.template.common.form</field>
@@ -41,9 +40,8 @@
                 Create a new product
             </p>
             <p> You currently have no products available for Helpdesk Tickets. <br
-                /> A product can
+            /> A product can
                 be either a physical product or a service that you sell to your customers. </p>
         </field>
     </record>
-
 </odoo>
