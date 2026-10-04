@@ -2,6 +2,11 @@ from odoo.addons.helpdesk_mgmt.tests.common import TestHelpdeskTicketBase
 
 
 class TestHelpdeskTicketProject(TestHelpdeskTicketBase):
+    _test_user_groups = (
+        *TestHelpdeskTicketBase._test_user_groups,
+        "project.group_project_manager",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -107,24 +112,7 @@ class TestHelpdeskTicketProject(TestHelpdeskTicketBase):
         action = single_ticket_task.action_view_ticket()
         self.assertEqual(action["res_id"], self.ticket.id)
 
-    def test_project_update_buttons(self):
-        """Test that the project update button is only visible to users with the
-        'Project / Project Manager' group.
-        """
-        user = self._create_new_internal_user(groups="project.group_project_user")
-
-        buttons = self.project1.with_user(user)._get_stat_buttons()
-        self.assertFalse(
-            any(
-                button["action"] == "action_open_helpdesk_tickets" for button in buttons
-            )
-        )
-        buttons = self.project1._get_stat_buttons()
-        self.assertTrue(
-            any(
-                button["action"] == "action_open_helpdesk_tickets" for button in buttons
-            )
-        )
+    def test_project_open_helpdesk_tickets(self):
         action = self.project1.action_open_helpdesk_tickets()
         tickets = self.env[action["res_model"]].search(action["domain"])
         self.assertEqual(len(tickets), 2)
