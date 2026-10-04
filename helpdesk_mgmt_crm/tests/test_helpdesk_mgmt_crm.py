@@ -9,6 +9,11 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestHelpdeskMgmtCrm(BaseCommon):
+    _test_user_groups = (
+        "helpdesk_mgmt.group_helpdesk_user",
+        "sales_team.group_sale_salesman_all_leads",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

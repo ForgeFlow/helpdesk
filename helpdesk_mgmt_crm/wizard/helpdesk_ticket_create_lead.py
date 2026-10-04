@@ -22,7 +22,7 @@ class HelpdeskTicketCreateLead(models.TransientModel):
     @api.model
     def default_get(self, fields):
         vals = super().default_get(fields)
-        ticket = self.env["helpdesk.ticket"].browse([self.env.context.get("active_id")])
+        ticket = self.env["helpdesk.ticket"].browse(self.env.context.get("active_id"))
         if ticket:
             vals.update({"ticket_id": ticket.id})
         return vals
@@ -64,4 +64,4 @@ class HelpdeskTicketCreateLead(models.TransientModel):
             )
         )
         self.ticket_id.with_user(SUPERUSER_ID).message_post(body=body)
-        return lead.get_formview_action()
+        return lead.get_record_default_action()
