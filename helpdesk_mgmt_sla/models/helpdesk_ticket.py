@@ -34,11 +34,13 @@ class HelpdeskTicket(models.Model):
         for ticket in self:
             ticket.sla_expired = any(
                 ticket.ticket_sla_ids.filtered(
-                    lambda sla: sla.state == "expired"
-                    or (
-                        sla.state == "in_progress"
-                        and sla.deadline
-                        and sla.deadline < now
+                    lambda sla: (
+                        sla.state == "expired"
+                        or (
+                            sla.state == "in_progress"
+                            and sla.deadline
+                            and sla.deadline < now
+                        )
                     )
                 )
             )

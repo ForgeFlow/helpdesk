@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_helpdesk_sla_search" model="ir.ui.view">
         <field name="name">helpdesk.sla.form.search</field>
@@ -15,7 +16,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="helpdesk_ticket_sla_form">
+    <record id="helpdesk_ticket_sla_form" model="ir.ui.view">
         <field name="name">helpdesk.sla.form</field>
         <field name="model">helpdesk.sla</field>
         <field name="arch" type="xml">
@@ -82,7 +83,7 @@
             </form>
         </field>
     </record>
-    <record model="ir.ui.view" id="helpdesk_sla_tree">
+    <record id="helpdesk_sla_tree" model="ir.ui.view">
         <field name="name">helpdesk.sla.tree</field>
         <field name="model">helpdesk.sla</field>
         <field name="arch" type="xml">

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="helpdesk_mgmt.helpdesk_team_2" model="helpdesk.ticket.team">
         <field name="use_sla" eval="True" />
