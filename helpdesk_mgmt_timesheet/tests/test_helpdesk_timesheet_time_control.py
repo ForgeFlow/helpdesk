@@ -1,5 +1,6 @@
 # Copyright 2016-2018 Tecnativa - Pedro M. Baeza
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0
+# ruff: noqa: DTZ005 - Odoo works with naive UTC datetimes
 
 from datetime import datetime, timedelta
 
@@ -20,7 +21,7 @@ class TestHelpdeskTimesheetTimeControl(common.TransactionCase):
                 ("unit_amount", "=", 0),
             ]
         ).button_end_work()
-        admin.groups_id |= self.browse_ref("hr_timesheet.group_hr_timesheet_user")
+        admin.group_ids |= self.browse_ref("hr_timesheet.group_hr_timesheet_user")
         self.uid = admin.id
         self.project = self.env["project.project"].create(
             {"name": "Test project", "allow_timesheets": True}

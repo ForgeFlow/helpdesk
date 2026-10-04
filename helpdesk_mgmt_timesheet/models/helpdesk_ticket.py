@@ -6,7 +6,7 @@ from odoo import api, fields, models
 
 class HelpdeskTicket(models.Model):
     _name = "helpdesk.ticket"
-    _inherit = ["helpdesk.ticket", "hr.timesheet.time_control.mixin"]
+    _inherit = ("helpdesk.ticket", "hr.timesheet.time_control.mixin")
 
     @api.model
     def _relation_with_timesheet_line(self):
@@ -30,7 +30,6 @@ class HelpdeskTicket(models.Model):
     timesheet_ids = fields.One2many(
         comodel_name="account.analytic.line",
         inverse_name="ticket_id",
-        string="Timesheet",
     )
     total_hours = fields.Float(
         compute="_compute_total_hours", readonly=True, store=True

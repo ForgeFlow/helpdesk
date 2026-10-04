@@ -4,7 +4,7 @@ from odoo.addons.helpdesk_mgmt.tests import test_helpdesk_portal
 
 
 class TestHelpdeskPortal(test_helpdesk_portal.TestHelpdeskPortalBase):
-    """ """
+    """Portal ticket submission with timesheet teams"""
 
     def setUp(self):
         super().setUp()

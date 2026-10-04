@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
+from odoo.tools import SQL
 
 
 class TimesheetsAnalysisReport(models.Model):
@@ -12,10 +13,10 @@ class TimesheetsAnalysisReport(models.Model):
 
     @api.model
     def _select(self):
-        return (
-            super()._select()
-            + """,
+        return SQL(
+            """%s,
             A.ticket_id AS ticket_id,
             A.ticket_partner_id AS ticket_partner_id
-        """
+            """,
+            super()._select(),
         )

@@ -12,6 +12,12 @@ _log = logging.getLogger(__name__)
 
 
 class TestHelpdeskMgmtTimesheet(test_helpdesk_ticket.TestHelpdeskTicket):
+    _test_user_groups = (
+        *test_helpdesk_ticket.TestHelpdeskTicket._test_user_groups,
+        "hr_timesheet.group_timesheet_manager",
+        "project.group_project_manager",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -29,7 +35,7 @@ class TestHelpdeskMgmtTimesheet(test_helpdesk_ticket.TestHelpdeskTicket):
                 "name": "User Employee",
                 "login": "user_employee",
                 "email": "useremployee@test.com",
-                "groups_id": [
+                "group_ids": [
                     (6, 0, [cls.env.ref("hr_timesheet.group_hr_timesheet_user").id])
                 ],
             }
