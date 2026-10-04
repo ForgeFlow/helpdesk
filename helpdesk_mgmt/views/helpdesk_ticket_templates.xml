@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template
         id="portal_layout"
@@ -132,7 +132,7 @@
                                     <span t-field="ticket.partner_id" />
                                 </td>
                                 <td class="text-left">
-                                    <span t-esc="ticket.number" />
+                                    <span t-out="ticket.number" />
                                 </td>
                                 <td>
                                     <a
@@ -142,13 +142,13 @@
                                     </a>
                                 </td>
                                 <td t-if="groupby != 'category'">
-                                    <span t-esc="ticket.category_id.complete_name" />
+                                    <span t-out="ticket.category_id.complete_name" />
                                 </td>
                                 <td t-if="groupby != 'stage'">
                                     <span
                                         class="badge badge-pill bg-info"
                                         title="Current stage of the ticket"
-                                        t-esc="ticket.stage_id.name"
+                                        t-out="ticket.stage_id.name"
                                     />
                                 </td>
                                 <td>
@@ -192,8 +192,8 @@
                     <t t-set="entries">
                         <div class="d-flex flex-column gap-4 mt-3">
                             <div
-                                class="col-12 d-flex flex-column"
                                 t-if="not ticket.closed_date"
+                                class="col-12 d-flex flex-column"
                                 name="ticket_close_buttons"
                             >
                                 <t t-foreach="closed_stages" t-as="stage">
@@ -219,8 +219,8 @@
                                 </t>
                             </div>
                             <div
-                                class="col-12 d-flex flex-column"
                                 t-if="ticket.user_id"
+                                class="col-12 d-flex flex-column"
                             >
                                 <h6>
                                     <small class="text-muted">Assignee</small>
@@ -237,22 +237,22 @@
                                     <t t-set="_contactLink" t-value="True" />
                                     <div class="d-flex row">
                                         <a
-                                            t-attf-href="mailto:{{ticket.user_id.email}}"
                                             t-if="ticket.user_id.email"
                                             class="col-12"
+                                            t-attf-href="mailto:{{ticket.user_id.email}}"
                                         >
                                             <div
-                                                t-esc="ticket.user_id"
+                                                t-out="ticket.user_id"
                                                 t-options='{"widget": "contact", "fields": ["email"]}'
                                             />
                                         </a>
                                         <a
+                                            t-if="ticket.user_id.phone"
                                             class="col-12"
                                             t-attf-href="tel:{{ticket.user_id.phone}}"
-                                            t-if="ticket.user_id.phone"
                                         >
                                             <div
-                                                t-esc="ticket.user_id"
+                                                t-out="ticket.user_id"
                                                 t-options='{"widget": "contact", "fields": ["phone"]}'
                                             />
                                         </a>
@@ -261,8 +261,8 @@
                             </div>
 
                             <div
-                                class="col-12 d-flex flex-column"
                                 t-if="ticket.partner_id"
+                                class="col-12 d-flex flex-column"
                             >
                                 <h6>
                                     <small class="text-muted">Customer</small>
@@ -349,8 +349,8 @@
                                 />
                             </div>
                             <div
-                                class="row"
                                 t-if="ticket.description or ticket.attachment_ids"
+                                class="row"
                             >
                                 <div
                                     t-if="not is_html_empty(ticket.description)"
@@ -393,7 +393,7 @@
                                                                 class='oe_attachment_name text-truncate'
                                                             >
                                                                 <t
-                                                                    t-esc='attachment.name'
+                                                                    t-out='attachment.name'
                                                                 />
                                                             </div>
                                                         </a>
@@ -444,43 +444,43 @@
                     name="csrf_token"
                     t-att-value="request.csrf_token()"
                 />
-                <div class="form-group mb-3" t-if="teams">
+                <div t-if="teams" class="form-group mb-3">
                     <label
                         class="col-md-3 col-sm-4 control-label"
                         for="team"
                     >Team</label>
                     <div class="col-md-7 col-sm-8">
                         <select
-                            class="form-control"
                             id="team"
+                            class="form-control"
                             name="team"
                             t-att-required="ticket_team_id_required"
                         >
                             <option value="" />
                             <t t-foreach="teams" t-as="team">
                                 <option t-attf-value="#{team.id}">
-                                    <t t-esc="team.name" />
+                                    <t t-out="team.name" />
                                 </option>
                             </t>
                         </select>
                     </div>
                 </div>
-                <div class="form-group mb-3" t-if="categories">
+                <div t-if="categories" class="form-group mb-3">
                     <label
                         class="col-md-3 col-sm-4 control-label"
                         for="category"
                     >Category</label>
                     <div class="col-md-7 col-sm-8">
                         <select
-                            class="form-control"
                             id="category"
+                            class="form-control"
                             name="category"
                             t-att-required="ticket_category_id_required"
                         >
                             <option value="" />
                             <t t-foreach="categories" t-as="cat">
                                 <option t-attf-value="#{cat.id}">
-                                    <t t-esc="cat.complete_name" />
+                                    <t t-out="cat.complete_name" />
                                 </option>
                             </t>
                         </select>
@@ -508,9 +508,9 @@
                     <div class="col-md-7 col-sm-8">
                         <div class="btn btn-default btn-file col-md-12 px-0">
                             <input
+                                id="attachment"
                                 class="form-control o_website_form_input"
                                 name="attachment"
-                                id="attachment"
                                 type="file"
                                 multiple="multiple"
                                 t-att-max_upload_size="max_upload_size"
@@ -518,8 +518,8 @@
                         </div>
                         <div
                             id="attachment_information"
-                            style="display: none;"
                             class="text-danger"
+                            style="display: none;"
                         />
                     </div>
                 </div>

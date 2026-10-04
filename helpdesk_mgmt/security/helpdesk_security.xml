@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <data>
-        <record model="res.groups.privilege" id="group_helpdesk_privilege">
+        <record id="group_helpdesk_privilege" model="res.groups.privilege">
             <field name="name">Helpdesk Access Levels</field>
             <field name="category_id" ref="module_helpdesk_category" />
         </record>
