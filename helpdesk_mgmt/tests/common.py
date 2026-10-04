@@ -6,6 +6,15 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestHelpdeskTicketBase(BaseCommon):
+    _test_user_groups = (
+        "helpdesk_mgmt.group_helpdesk_manager",
+        "base.group_partner_manager",
+        "base.group_system",
+        # Ignored when not installed; needed when helpdesk_mgmt_sale is
+        # installed, as copying a ticket reads its sale orders
+        "sales_team.group_sale_salesman",
+    )
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

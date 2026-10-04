@@ -1,10 +1,12 @@
 # Copyright 2023 Tecnativa - Víctor Martínez
 # License AGPL-3 - See http://www.gnu.org/licenses/agpl-3.0.html
 # import odoo.tests
-from odoo import http
 from odoo.tests.common import new_test_user, tagged
 
-from odoo.addons.base.tests.common import DISABLED_MAIL_CONTEXT, HttpCaseWithUserPortal
+from odoo.addons.base.tests.common import (
+    DISABLED_MAIL_CREATE_CONTEXT,
+    HttpCaseWithUserPortal,
+)
 
 
 @tagged("post_install", "-at_install")
@@ -17,7 +19,7 @@ class TestHelpdeskPortalBase(HttpCaseWithUserPortal):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CONTEXT))
+        cls.env = cls.env(context=dict(cls.env.context, **DISABLED_MAIL_CREATE_CONTEXT))
         cls.new_ticket_title = "portal-new-submitted-ticket-subject"
         cls.new_ticket_desc_lines = (  # multiline description to check line breaks
             "portal-new-submitted-ticket-description-line-1",
@@ -59,7 +61,7 @@ class TestHelpdeskPortalBase(HttpCaseWithUserPortal):
     def _submit_ticket(self, **values):
         data = {
             "category": self.portal_category.id,
-            "csrf_token": http.Request.csrf_token(self),
+            "csrf_token": self.csrf_token(),
             "subject": self.new_ticket_title,
             "description": "\n".join(self.new_ticket_desc_lines),
         }
@@ -218,7 +220,7 @@ class TestHelpdeskPortal(TestHelpdeskPortalBase):
         resp = self.url_open(
             "/ticket/close",
             data={
-                "csrf_token": http.Request.csrf_token(self),
+                "csrf_token": self.csrf_token(),
                 "stage_id": stage.id,
                 "ticket_id": ticket.id,
             },

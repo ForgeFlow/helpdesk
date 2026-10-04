@@ -2,6 +2,8 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestPartner(BaseCommon):
+    _test_user_groups = ("helpdesk_mgmt.group_helpdesk_manager",)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

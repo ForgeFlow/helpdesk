@@ -18,17 +18,10 @@ class CustomerPortalHelpdesk(CustomerPortal):
     Very similar to those in the "project" module defined to manage tasks.
     """
 
-    def _prepare_home_portal_values(self, counters):
-        values = super()._prepare_home_portal_values(counters)
-        if "ticket_count" in counters:
-            helpdesk_model = request.env["helpdesk.ticket"]
-            ticket_count = (
-                helpdesk_model.search_count([])
-                if helpdesk_model.has_access("read")
-                else 0
-            )
-            values["ticket_count"] = ticket_count
-        return values
+    def _prepare_portal_counter_values(self, counter):
+        if counter == "ticket_count":
+            return "helpdesk.ticket", [], "read"
+        return super()._prepare_portal_counter_values(counter)
 
     @http.route(
         ["/my/tickets", "/my/tickets/page/<int:page>"],
@@ -82,28 +75,25 @@ class CustomerPortalHelpdesk(CustomerPortal):
 
         if not filterby:
             filterby = "all"
-        domain = searchbar_filters.get(filterby, searchbar_filters.get("all"))["domain"]
+        domain = Domain(
+            searchbar_filters.get(filterby, searchbar_filters.get("all"))["domain"]
+        )
 
         if not groupby:
             groupby = "none"
 
         if date_begin and date_end:
-            domain += [
-                ("create_date", ">", date_begin),
-                ("create_date", "<=", date_end),
-            ]
+            domain &= Domain(
+                [
+                    ("create_date", ">", date_begin),
+                    ("create_date", "<=", date_end),
+                ]
+            )
 
         if not search_in:
             search_in = "all"
         if search:
-            domain += self._ticket_get_search_domain(search_in, search)
-
-        domain = Domain.AND(
-            [
-                domain,
-                request.env["ir.rule"]._compute_domain(HelpdeskTicket._name, "read"),
-            ]
-        )
+            domain &= self._ticket_get_search_domain(search_in, search)
 
         # count for pager
         ticket_count = HelpdeskTicket.search_count(domain)

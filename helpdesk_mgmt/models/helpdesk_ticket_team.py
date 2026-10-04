@@ -5,7 +5,7 @@ from odoo.tools.safe_eval import safe_eval
 class HelpdeskTeam(models.Model):
     _name = "helpdesk.ticket.team"
     _description = "Helpdesk Ticket Team"
-    _inherit = ["mail.thread", "mail.alias.mixin"]
+    _inherit = ("mail.thread", "mail.alias.mixin")
     _order = "sequence, id"
     _parent_name = "parent_id"
     _parent_store = True
@@ -22,12 +22,9 @@ class HelpdeskTeam(models.Model):
         column2="res_users_id",
     )
     active = fields.Boolean(default=True)
-    category_ids = fields.Many2many(
-        comodel_name="helpdesk.ticket.category", string="Category"
-    )
+    category_ids = fields.Many2many(comodel_name="helpdesk.ticket.category")
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
         default=lambda self: self.env.company,
     )
     user_id = fields.Many2one(
@@ -164,7 +161,7 @@ class HelpdeskTeam(models.Model):
                 "name": self.env._("Open Tickets without team"),
                 "value": no_team_tickets,
                 "sequence": 1,
-                "icon": "fa-exclamation-circle",
+                "icon": "error",
                 "show": no_team_tickets > 0,
                 "action": "helpdesk_mgmt.helpdesk_ticket_action_unassigned",
             },
@@ -174,7 +171,7 @@ class HelpdeskTeam(models.Model):
                     [("stage_id.closed", "=", False)]
                 ),
                 "sequence": 2,
-                "icon": "fa-life-ring",
+                "icon": "confirmation_number",
                 "show": True,
                 "action": "helpdesk_mgmt.helpdesk_ticket_action_opened",
             },

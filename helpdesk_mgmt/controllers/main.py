@@ -1,4 +1,3 @@
-import base64
 import logging
 
 import werkzeug
@@ -119,7 +118,7 @@ class HelpdeskTicketController(http.Controller):
                     request.env["ir.attachment"].sudo().create(
                         {
                             "name": c_file.filename,
-                            "datas": base64.b64encode(data),
+                            "raw": data,
                             "res_model": "helpdesk.ticket",
                             "res_id": new_ticket.id,
                         }

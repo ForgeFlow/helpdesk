@@ -6,15 +6,14 @@ class HelpdeskTicket(models.Model):
     _name = "helpdesk.ticket"
     _description = "Helpdesk Ticket"
     _rec_name = "number"
-    _rec_names_search = ["number", "name"]
+    _rec_names_search = ("number", "name")
     _order = "priority desc, sequence, number desc, id desc"
     _mail_post_access = "read"
-    _inherit = [
-        "mail.thread.cc",
+    _inherit = (
         "mail.activity.mixin",
         "portal.mixin",
         "mail.tracking.duration.mixin",
-    ]
+    )
     _track_duration_field = "stage_id"
 
     @api.depends("team_id")
@@ -80,7 +79,6 @@ class HelpdeskTicket(models.Model):
     )
     stage_id = fields.Many2one(
         comodel_name="helpdesk.ticket.stage",
-        string="Stage",
         compute="_compute_stage_id",
         store=True,
         readonly=False,
@@ -107,23 +105,19 @@ class HelpdeskTicket(models.Model):
     tag_ids = fields.Many2many(comodel_name="helpdesk.ticket.tag", string="Tags")
     company_id = fields.Many2one(
         comodel_name="res.company",
-        string="Company",
         required=True,
         default=lambda self: self.env.company,
     )
     channel_id = fields.Many2one(
         comodel_name="helpdesk.ticket.channel",
-        string="Channel",
         help="Channel indicates where the source of a ticket"
         "comes from (it could be a phone call, an email...)",
     )
     category_id = fields.Many2one(
         comodel_name="helpdesk.ticket.category",
-        string="Category",
     )
     team_id = fields.Many2one(
         comodel_name="helpdesk.ticket.team",
-        string="Team",
         index=True,
         compute="_compute_team_id",
         store=True,

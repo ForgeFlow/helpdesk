@@ -61,7 +61,7 @@
                                             type="action"
                                             context="{'search_default_open': 1}"
                                         >
-                                            <t t-esc="record.todo_ticket_count.value" />
+                                            <t t-out="record.todo_ticket_count.value" />
                                             To Do
                                         </button>
                                     </div>
@@ -78,7 +78,7 @@
                                             </div>
                                             <div class="col-3">
                                                 <t
-                                                    t-esc="record.todo_ticket_count_unassigned.value"
+                                                    t-out="record.todo_ticket_count_unassigned.value"
                                                 />
                                             </div>
                                             <div class="col-9">
@@ -92,7 +92,7 @@
                                             </div>
                                             <div class="col-3">
                                                 <t
-                                                    t-esc="record.todo_ticket_count_unattended.value"
+                                                    t-out="record.todo_ticket_count_unattended.value"
                                                 />
                                             </div>
                                             <div class="col-9">
@@ -106,7 +106,7 @@
                                             </div>
                                             <div class="col-3">
                                                 <t
-                                                    t-esc="record.todo_ticket_count_high_priority.value"
+                                                    t-out="record.todo_ticket_count_high_priority.value"
                                                 />
                                             </div>
                                         </div>
