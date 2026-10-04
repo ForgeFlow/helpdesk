@@ -5,6 +5,9 @@ from odoo.addons.base.tests.common import BaseCommon
 
 
 class TestWebsiteHelpdeskForm(BaseCommon):
+    # The website form configuration of ir.model is only readable by admins
+    _test_user_groups = ("base.group_system",)
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

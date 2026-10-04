@@ -1,0 +1,2 @@
+id,name,model_id,group_id/id,operation,domain
+access_helpdesk_ticket_team_public,helpdesk.ticket.team.public,helpdesk.ticket.team,base.group_public,r,
