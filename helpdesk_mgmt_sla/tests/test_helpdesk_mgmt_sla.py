@@ -186,10 +186,16 @@ class TestHelpdeskMgmtSla(CommonHelpdeskMgmtSla):
             .with_user(self.user_sla)
             .search([("id", "=", ticket1.id)])
         )
+        ticket_sla = ticket1.ticket_sla_ids
+        self.assertTrue(ticket_sla)
+        # The SLA of a ticket follows the access of the ticket
+        self.assertFalse(
+            self.env["helpdesk.ticket.sla"]
+            .with_user(self.user_sla)
+            .search([("ticket_id", "=", ticket1.id)])
+        )
         with self.assertRaises(AccessError):
-            self.env["helpdesk.ticket.sla"].with_user(self.user_sla).search(
-                [("ticket_id", "=", ticket1.id)]
-            ).check_access("write")
+            ticket_sla.with_user(self.user_sla).check_access("write")
 
     def test_colors(self):
         """

@@ -151,6 +151,9 @@ class HelpdeskTicketSla(models.Model):
                 self.state = "in_progress"
         self.last_state_date = now
 
-    def _check_access(self, operation: str) -> tuple | None:
-        result = super()._check_access(operation)
-        return result or self.ticket_id._check_access(operation)
+    @api.model
+    def _access_domain(self, operation: str) -> Domain:
+        # Same access as the ticket
+        return super()._access_domain(operation) & Domain(
+            "ticket_id", "access", operation
+        )

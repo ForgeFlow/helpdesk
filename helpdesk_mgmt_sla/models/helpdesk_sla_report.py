@@ -1,13 +1,18 @@
 # Copyright 2025 Dixmit
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import fields, models
+from odoo import fields, models, tools
+from odoo.tools import SQL
 
 
 class HelpdeskSlaReport(models.Model):
     _name = "helpdesk.sla.report"
     _description = "Helpdesk SLA Report"
     _auto = False
+    _depends = {  # noqa: RUF012
+        "helpdesk.ticket": ["name", "create_date", "team_id", "active"],
+        "helpdesk.ticket.sla": ["ticket_id", "state", "deadline"],
+    }
 
     ticket_id = fields.Many2one("helpdesk.ticket", readonly=True)
     name = fields.Char(readonly=True)
@@ -58,6 +63,12 @@ class HelpdeskSlaReport(models.Model):
             WHERE {self._where_sla()}
         """
 
-    @property
-    def _table_query(self):
-        return self._query()
+    def init(self):
+        tools.drop_view_if_exists(self.env.cr, self._table)
+        self.env.cr.execute(
+            SQL(
+                "CREATE OR REPLACE VIEW %s AS (%s)",
+                SQL.identifier(self._table),
+                SQL(self._query()),
+            )
+        )

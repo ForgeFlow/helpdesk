@@ -15,7 +15,6 @@ class CommonHelpdeskMgmtSla(test_helpdesk_ticket.TestHelpdeskTicket):
                 "attendance_ids": [
                     Command.create(
                         {
-                            "name": str(i),
                             "dayofweek": str(i),
                             "hour_from": 0,
                             "hour_to": 24,

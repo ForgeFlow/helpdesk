@@ -1,0 +1,10 @@
+id,name,model_id,group_id/id,operation,domain
+access_helpdesk_sla_manager,access_helpdesk_sla_manager,helpdesk.sla,helpdesk_mgmt.group_helpdesk_manager,crud,
+access_helpdesk_sla_portal,helpdesk.ticket.portal,helpdesk.sla,base.group_portal,r,
+access_helpdesk_sla_base_user,helpdesk.ticket.portal,helpdesk.sla,base.group_user,r,
+helpdesk_sla_comp_rule,Helpdesk SLA Company Rule,helpdesk.sla,,crud,"[('company_id', 'in', company_ids + [False])]"
+access_helpdesk_ticket_sla_manager,access_helpdesk_ticket_sla_manager,helpdesk.ticket.sla,helpdesk_mgmt.group_helpdesk_manager,crud,
+access_helpdesk_ticket_sla_portal,helpdesk.ticket.portal,helpdesk.ticket.sla,base.group_portal,r,
+access_helpdesk_ticket_sla_base_user,helpdesk.ticket.portal,helpdesk.ticket.sla,base.group_user,r,
+access_helpdesk_ticket_sla_user_personal,helpdesk.ticket.portal,helpdesk.ticket.sla,helpdesk_mgmt.group_helpdesk_user_own,cru,
+access_helpdesk_sla_report_manager,access_helpdesk_sla_manager,helpdesk.sla.report,helpdesk_mgmt.group_helpdesk_manager,crud,

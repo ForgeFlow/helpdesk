@@ -7,11 +7,11 @@ from odoo import fields, models
 
 class HelpdeskSla(models.Model):
     _name = "helpdesk.sla"
-    _inherit = ["mail.thread", "mail.activity.mixin"]
+    _inherit = ("mail.thread", "mail.activity.mixin")
     _description = "Helpdesk SLA"
 
     name = fields.Char(required=True)
-    company_id = fields.Many2one(comodel_name="res.company", string="Company")
+    company_id = fields.Many2one(comodel_name="res.company")
     team_ids = fields.Many2many(comodel_name="helpdesk.ticket.team", string="Teams")
     category_ids = fields.Many2many(
         comodel_name="helpdesk.ticket.category", string="Categories"

@@ -41,7 +41,8 @@
                     />
                     <div class="align-items-center d-inline-flex text-muted">
                         <i
-                            class="fa fa-lg fa-clock-o mx-2"
+                            class="oi oi-lg mx-2"
+                            data-icon="schedule"
                             aria-label="SLA Deadline"
                             title="SLA Deadline"
                         />
