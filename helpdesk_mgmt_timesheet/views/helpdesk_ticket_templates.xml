@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <template
         id="portal_ticket_list"
@@ -13,7 +13,7 @@
             <th t-if="has_timesheet_column">Spent Time</th>
         </xpath>
         <xpath expr="//tbody/t/tr" position="inside">
-            <td class="text-right" t-if="has_timesheet_column">
+            <td t-if="has_timesheet_column" class="text-right">
                 <span
                     t-field="ticket.total_hours"
                     t-options="{'widget': 'float_time'}"
@@ -30,8 +30,8 @@
     >
         <xpath expr="//div[@id='card_body']" position="inside">
             <div
-                class="mb-4 mb-md-0"
                 t-if="ticket.team_id.sudo().allow_timesheet and ticket.team_id.sudo().show_timesheet_portal and ticket.timesheet_ids"
+                class="mb-4 mb-md-0"
             >
                 <h5 class="mb-1">Timesheets</h5>
                 <hr class="mt-1 mb-2" />

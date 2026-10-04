@@ -1,7 +1,7 @@
 # Copyright 2023 ForgeFlow S.L. (https://www.forgeflow.com)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import odoo.http as http
+from odoo import http
 
 from odoo.addons.helpdesk_mgmt.controllers.main import HelpdeskTicketController
 
